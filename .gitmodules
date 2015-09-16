@@ -1,0 +1,3 @@
+[submodule "packer-windows"]
+	path = packer-windows
+	url = https://github.com/joefitzgerald/packer-windows.git

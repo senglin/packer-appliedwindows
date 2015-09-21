@@ -2,9 +2,9 @@
   "builders": [
     {
       "type": "vmware-iso",
-      "iso_url": "http://download.microsoft.com/download/6/2/A/62A76ABB-9990-4EFC-A4FE-C7D698DAEB96/9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5.ISO",
-      "iso_checksum_type": "md5",
-      "iso_checksum": "458ff91f8abc21b75cb544744bf92e6a",
+      "iso_url": "http://care.dlservice.microsoft.com/dl/download/C/3/9/C399EEA8-135D-4207-92C9-6AAB3259F6EF/10240.16384.150709-1700.TH1_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
+      "iso_checksum_type": "sha1",
+      "iso_checksum": "56ab095075be28a90bc0b510835280975c6bb2ce",
       "headless": true,
       "boot_wait": "2m",
       "ssh_username": "vagrant",
@@ -17,7 +17,8 @@
       "vnc_port_min": 5900,
       "vnc_port_max": 5980,
       "floppy_files": [
-        "./packer-windows/answer_files/2012_r2/Autounattend.xml",
+        "./packer-windows/answer_files/10/Autounattend.xml",
+        "./packer-windows/scripts/fixnetwork.ps1",
         "./packer-windows/scripts/microsoft-updates.bat",
         "./packer-windows/scripts/win-updates.ps1",
         "./packer-windows/scripts/openssh.ps1"
@@ -32,19 +33,20 @@
     },
     {
       "type": "virtualbox-iso",
-      "iso_url": "http://download.microsoft.com/download/6/2/A/62A76ABB-9990-4EFC-A4FE-C7D698DAEB96/9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5.ISO",
-      "iso_checksum_type": "md5",
-      "iso_checksum": "458ff91f8abc21b75cb544744bf92e6a",
+      "iso_url": "http://care.dlservice.microsoft.com/dl/download/C/3/9/C399EEA8-135D-4207-92C9-6AAB3259F6EF/10240.16384.150709-1700.TH1_CLIENTENTERPRISEEVAL_OEMRET_X64FRE_EN-US.ISO",
+      "iso_checksum_type": "sha1",
+      "iso_checksum": "56ab095075be28a90bc0b510835280975c6bb2ce",
       "headless": true,
       "boot_wait": "2m",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "6h",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "guest_os_type": "Windows2012_64",
+      "guest_os_type": "Windows10_64",
       "disk_size": 61440,
       "floppy_files": [
-        "./packer-windows/answer_files/2012_r2/Autounattend.xml",
+        "./packer-windows/answer_files/10/Autounattend.xml",
+        "./packer-windows/scripts/fixnetwork.ps1",
         "./packer-windows/scripts/microsoft-updates.bat",
         "./packer-windows/scripts/win-updates.ps1",
         "./packer-windows/scripts/openssh.ps1",
@@ -73,10 +75,8 @@
       "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
         "./packer-windows/scripts/vm-guest-tools.bat",
-        "./packer-windows/scripts/chef.bat",
         "./packer-windows/scripts/vagrant-ssh.bat",
         "./packer-windows/scripts/enable-rdp.bat",
-        "./packer-windows/scripts/compile-dotnet-assemblies.bat",
         "./packer-windows/scripts/disable-auto-logon.bat"
       ]
     },
@@ -107,8 +107,8 @@
     {
       "type": "vagrant",
       "keep_input_artifact": false,
-      "output": "win-2012r2-standard-vs2015community_{{.Provider}}.box",
-      "vagrantfile_template": "./packer-windows/vagrantfile-windows_2012_r2.template"
+      "output": "win-10-enterprise-vs2015community_{{.Provider}}.box",
+      "vagrantfile_template": "./packer-windows/vagrantfile-windows_10.template"
     }
   ]
 }
